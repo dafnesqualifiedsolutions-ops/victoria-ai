@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Victoria AI Closer — Recepcionistas con IA</title>
+<style>
+  :root{--bg:#0d1117;--card:#161b22;--accent:#ff4d6d;--accent2:#2dd4bf;--txt:#e6edf3;--muted:#8b949e;--green:#22c55e}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5;padding:18px}
+  .wrap{max-width:720px;margin:0 auto}
+  header{text-align:center;margin-bottom:18px}
+  h1{font-size:1.9rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .tag{color:var(--muted);margin-top:6px;font-size:.9rem}
+
+  /* live talk */
+  .hero{background:var(--card);border:1px solid var(--green);border-radius:16px;padding:22px;text-align:center;margin:18px 0}
+  .hero h2{font-size:1.35rem;margin-bottom:6px}
+  .hero p{color:var(--muted);font-size:.9rem;margin-bottom:14px}
+  .talk{width:100%;padding:16px;border-radius:14px;border:none;cursor:pointer;font-weight:800;font-size:1.1rem;background:var(--green);color:#04200f}
+  .talk:active{transform:scale(.98)}
+  .talk:disabled{opacity:.6}
+  .status{margin-top:10px;font-size:.85rem;color:var(--accent2);min-height:18px}
+
+  /* cards */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0}
+  .card{background:var(--card);border:1px solid #30363d;border-radius:12px;padding:14px;text-align:center}
+  .card h3{font-size:1rem;margin-bottom:4px}
+  .card p{color:var(--muted);font-size:.78rem;min-height:32px}
+  .btn{display:inline-block;margin-top:8px;padding:7px 13px;border-radius:999px;border:none;cursor:pointer;font-weight:700;background:var(--accent2);color:#04201c;font-size:.8rem}
+  .btn:active{transform:scale(.96)}
+
+  /* pricing + wa */
+  .pricing{background:var(--card);border-radius:12px;padding:18px;text-align:center;margin:18px 0}
+  .pricing h2{margin-bottom:8px;font-size:1.1rem}
+  .price{font-size:1.4rem;color:var(--accent2);font-weight:800}
+  .promo{color:var(--muted);font-size:.8rem;margin-top:6px}
+  .wa{background:var(--card);border:1px solid var(--accent);border-radius:12px;padding:16px;text-align:center;margin:18px 0}
+  .wa a{color:var(--accent2);font-weight:700;text-decoration:none}
+  footer{color:var(--muted);text-align:center;margin-top:22px;font-size:.78rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>VICTORIA — AI Closer</h1>
+    <div class="tag">Recepcionistas con Inteligencia Artificial para su negocio en Puerto Morelos</div>
+  </header>
+
+  <!-- LIVE TALK (the demo tool for when you're out with your phone) -->
+  <section class="hero">
+    <h2>🟢 Hable con Victoria en vivo</h2>
+    <p>Abra esto en el celular, toque el botón y háblele en español o inglés. Ella se vende sola: explica, hace una demo y le da su WhatsApp.</p>
+    <button id="talkBtn" class="talk">🎙️ Hablar con Victoria en vivo</button>
+    <p id="status" class="status"></p>
+  </section>
+
+  <!-- THE 4 CHOICES -->
+  <div class="grid">
+    <div class="card">
+      <h3>Victoria (Closer)</h3>
+      <p>Cierra la venta y agenda su demostración en vivo por WhatsApp.</p>
+      <button class="btn" onclick="play('victoria_intro_es.wav')">▶ Escuchar</button>
+    </div>
+    <div class="card">
+      <h3>Sofia · Bienes Raíces</h3>
+      <p>Recepcionista bilingüe para Airbnb, rentas y propiedades 24/7.</p>
+      <button class="btn" onclick="play('sofia_es.wav')">▶ Escuchar</button>
+    </div>
+    <div class="card">
+      <h3>Maria · Lavandería</h3>
+      <p>Agenda servicios de lavandería y limpieza sin perder un cliente.</p>
+      <button class="btn" onclick="play('maria_es.wav')">▶ Escuchar</button>
+    </div>
+    <div class="card">
+      <h3>Jose · Barbería</h3>
+      <p>Recepcionista para barberías y salones, cero citas perdidas.</p>
+      <button class="btn" onclick="play('jose_es.wav')">▶ Escuchar</button>
+    </div>
+  </div>
+
+  <!-- PRICING (PESOS) -->
+  <div class="pricing">
+    <h2>Inversión</h2>
+    <p>Configuración <span class="price">$2,000 pesos</span> (una sola vez) · Mensualidad <span class="price">$2,000 pesos</span> por recepcionista.</p>
+    <p class="promo">Promoción primeros 20 clientes: pregunte por precio especial de configuración.</p>
+  </div>
+
+  <!-- WHATSAPP -->
+  <section class="wa">
+    ¿Prefiere WhatsApp? Escríbanos: <a href="https://wa.me/529987513548?text=Hola%20Victoria,%20quiero%20la%20demo%20en%20vivo" target="_blank">+52 998 751 3548</a>
+  </section>
+
+  <footer>
+    Sistema en la nube · Vapi + Ollama + Piper · Puerto Morelos, Q.Roo<br>
+    ¿Preguntas? WhatsApp: +52 998 751 3548
+  </footer>
+</div>
+
+<script>
+  let cur=null;
+  function play(f){ if(cur){cur.pause();cur.currentTime=0;} cur=new Audio('static/'+f); cur.play().catch(e=>alert('Audio no disponible: '+e)); }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@vapi-ai/web-sdk@latest/dist/voice.min.js"></script>
+<script>
+  const VAPI_PUBLIC_KEY = "pk-67bd7d4d-e8cf-4afc-b26b-a1a54fd45568";
+  const VICTORIA_ASSISTANT_ID = "4c5df6a4-bc7f-47b7-a2fd-7cfae3cfccb1";
+  const btn = document.getElementById('talkBtn');
+  const status = document.getElementById('status');
+  let vapi = null;
+  btn.addEventListener('click', async () => {
+    status.textContent = "Conectando con Victoria...";
+    btn.disabled = true;
+    try{
+      if(!vapi) vapi = new Vapi({ publicKey: VAPI_PUBLIC_KEY });
+      vapi.on('call-started', () => status.textContent = "Victoria está escuchando 🎧");
+      vapi.on('call-ended',   () => { status.textContent = "Llamada terminada."; btn.disabled = false; });
+      vapi.on('error', (e) => { status.textContent = "Error: " + (e && e.message ? e.message : e); btn.disabled = false; });
+      await vapi.start(VICTORIA_ASSISTANT_ID);
+    }catch(e){
+      status.textContent = "Error: " + (e && e.message ? e.message : e);
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
