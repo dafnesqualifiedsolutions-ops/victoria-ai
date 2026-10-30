@@ -101,7 +101,7 @@
   let cur=null;
   function play(f){ if(cur){cur.pause();cur.currentTime=0;} cur=new Audio('static/'+f); cur.play().catch(e=>alert('Audio no disponible: '+e)); }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@vapi-ai/web-sdk@latest/dist/voice.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@vapi-ai/web@latest/dist/vapi.min.js"></script>
 <script>
   const VAPI_PUBLIC_KEY = "pk-67bd7d4d-e8cf-4afc-b26b-a1a54fd45568";
   const VICTORIA_ASSISTANT_ID = "4c5df6a4-bc7f-47b7-a2fd-7cfae3cfccb1";
